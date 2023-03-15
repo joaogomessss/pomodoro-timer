@@ -65,11 +65,14 @@ if(remainingTime == 0 ){
 
 
 
-document.addEventListener("visibilitychange" , god);
 
-function god() {
+function checkVisibility() {
 
-console.log("pru")
+if(document.hidden){
+
+cancelAnimationFrame(requestId);
+
+}else { requestId = requestAnimationFrame(checkVisibility)          }
 
 };
 
@@ -115,3 +118,5 @@ subButton.remove();
 };
 
 }
+
+checkVisibility();
