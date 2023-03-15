@@ -1,4 +1,4 @@
-#diplay {
+#display {
 
 color : white;
 
@@ -6,11 +6,20 @@ color : white;
 
 }
 
-
 body {
 
 background-color: rgb(243, 53, 53);
 
 
 
-};
+}
+
+
+button {
+
+        background-color : rgb(103, 212, 103);
+        border-style:none;
+        border-radius: 5px;
+
+
+}
