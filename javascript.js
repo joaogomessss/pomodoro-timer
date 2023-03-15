@@ -51,13 +51,15 @@ display.textContent = hours + ":" + minutes + ":" + seconds ;
 
 
 
-if(remainingTime == 0 ){ 
-    
+if(remainingTime <= 0 ){ 
+    remainingTime = 0;
     clearInterval(loop)  ; 
+    
     loop = null;
     let newTab = window.open();
     newTab.alert(taskChoosen);
 
+    update(remainingTime);
 
     hours = ac.h;
     minutes = ac.m;
