@@ -1,10 +1,9 @@
 
-
 let requestId;
 
 
-let startButton = document.querySelector("#start-btn").onclick  = () => Start(); ;
-let editButton = document.querySelector("#edit-btn").onclick = () => Edit();
+let startButton = document.querySelector("#start-button").onclick  = () => start(); ;
+let editButton = document.querySelector("#edit-button").onclick = () => Edit();
 
 let display = document.querySelector("#display")
 
@@ -18,9 +17,7 @@ let taskChoosen;
 
 let ac = { h:"" , m:"" , s:""  };
 
-function consolo(){ console.log(remainingTime)};
-
-function Start() {   
+function start() {   
 
    
 let initialTime = new  Date().getTime()+ 1000 + hours * 3600000 + minutes * 60000 + seconds * 1000; 
@@ -28,25 +25,34 @@ let initialTime = new  Date().getTime()+ 1000 + hours * 3600000 + minutes * 6000
 
 loop = setInterval(function() {
 
+
 let interTime = new  Date().getTime() ;
 
 remainingTime = Math.floor((initialTime - interTime) / 1000)  ;
-
 
 hours = Math.floor(remainingTime / 3600 )
 minutes = Math.floor((remainingTime % 3600) / 60 );
 seconds = Math.floor(remainingTime % 60 );
 
+if(hours   < 10 ){ hours   = "0" + hours };
+if(minutes < 10 ){ minutes = "0" + minutes };
+if(seconds < 10 ){ seconds = "0" + seconds };
+
 display.textContent = hours + ":" + minutes + ":" + seconds ;
 
-if(remainingTime == 0 ){ clearInterval(loop) ; let newTab = window.open() ; 
-    
-    newTab.alert(taskChoosen)
+console.log(remainingTime);
 
-    display.textContent = ac.h + ":" + ac.m + ":" + ac.s }; 
-    hours = ac.h ;
-    minutes = ac.m ;
-    seconds = ac.s ;
+
+
+
+if(remainingTime == 0 ){ 
+    
+    clearInterval(loop)  ; 
+
+    let newTab = window.open();
+    newTab.alert(taskChoosen);
+
+}
 
 
 },1000);
@@ -57,16 +63,19 @@ if(remainingTime == 0 ){ clearInterval(loop) ; let newTab = window.open() ;
 };
 
 
-document.addEventListener("visibilitychange" , traidor)
-
-function traidor() {
 
 
-setInterval(function (){ /*console.log(remainingTime) */}, 1000);
+document.addEventListener("visibilitychange" , god);
 
+function god() {
 
+console.log("pru")
 
 };
+
+
+
+
 
 function Edit() {
 
@@ -91,6 +100,10 @@ ac.m = min.value;
 ac.s = sec.value;
 taskChoosen = task.value;
 
+if(hours   < 10 ){ hours   = "0" + hours };
+if(minutes < 10 ){ minutes = "0" + minutes };
+if(seconds < 10 ){ seconds = "0" + seconds };
+
 display.textContent = hours + ":" + minutes + ":" + seconds ;
 
 hou.remove();
@@ -101,4 +114,4 @@ subButton.remove();
 
 };
 
-};
+}
