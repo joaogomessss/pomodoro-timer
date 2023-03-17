@@ -11,17 +11,19 @@ margin: 0;
 
 #container {
 
-justify-content: center;    
+justify-content: center;  
+
 
 
 }
 
 #display {
 
-
- display:flex; 
+text-align: center;
 color : white;
-font-size: 100px;
+font-size: 50px;
+font-size: 90px;
+
 font-family: 'Courier New', Courier, monospace;
  
 justify-content: center;
@@ -57,7 +59,8 @@ button {
         border-radius: 5px;
         font-size: xx-large;
         margin:50px;
-        min-width: 100px;
+        padding:10px;
+        
 
 
 }
