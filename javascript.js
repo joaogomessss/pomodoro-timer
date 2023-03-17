@@ -14,6 +14,8 @@ let minutes;
 let seconds;
 let taskChoosen;
 
+let ac = { h:"" , m:"" , s:""  };
+
 
 
 // This code will run in the main thread
@@ -92,15 +94,10 @@ let startButton = document.querySelector("#start-button");
 startButton.onclick  =  function(){ 
     
     initialTime = new  Date().getTime() + 1000 + hours * 3600000 + minutes * 60000 + seconds * 1000;
-
-
-
-    worker.postMessage({ type: 'start', data: initialTime });  
-
-
-
-
-
+    worker.postMessage({ type: 'start', data: initialTime }); 
+    
+    startButton.textContent = "pause";
+    
 
 };
 
@@ -113,84 +110,28 @@ worker.onmessage = (event) => {
 const timeLeft = event.data;
 // Update the UI with the time left
 display.textContent = timeLeft;
-if(timeLeft == "00:00:00"){let newTab = window.open();newTab.alert(taskChoosen); };
+if(taskChoosen == ""){taskChoosen = "time is over"};
+if(timeLeft == "00:00:00"){let newTab = window.open();newTab.alert(taskChoosen); 
+hours = ac.h;
+minutes = ac.m;
+seconds = ac.s;
+
+if(hours == "" ){ hours = 0 };
+if(minutes  == "" ){ minutes = 0 };
+if(seconds  == "" ){ seconds =  0 };
+
+if(hours  < 10 ){ hours   = "0" + hours };
+if(minutes< 10 ){ minutes = "0" + minutes };
+if(seconds < 10 ){ seconds = "0" + seconds };
+
+display.textContent =  hours + ":" + minutes + ":" + seconds ;
+taskChoosen = taskChoosen;
+
+startButton.textContent = "Start";
+};
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-let ac = { h:"" , m:"" , s:""  };
-
-function start() {   
-    
- initialTime = new  Date().getTime() + 1000 + hours * 3600000 + minutes * 60000 + seconds * 1000; 
- 
-
-loop = setInterval(function() {
-
-
-
-
-
-
-
-
-if(remainingTime <= 0 ){ 
-    
-    clearInterval(loop)  ; 
-    loop = null;
-    
-
-
-    hours = ac.h;
-    minutes = ac.m;
-    seconds = ac.s;
-    taskChoosen = taskChoosen;
-}
-
-},1000)
-
-
-startButton.textContent = "pause";
-startButton.onclick = () => pause();
-};
-
-
-
-
-function update(remainingTime){
-
-
-};
-
-
-
-
-
-
-function pause(){
-
- if(startButton.textContent == "pause" ){  clearInterval(loop) ; startButton.textContent = "Start";   }  else {   start() ;   } 
-
-
-};
 
 function Edit() {
 
@@ -200,8 +141,8 @@ let sec = document.createElement("input"); sec.setAttribute("placeholder","segun
 let task = document.createElement("input"); task.setAttribute("placeholder","mensagem(opcional)");
 let subButton = document.createElement("button"); subButton.textContent = "ok" ;
 
-let body = document.querySelector("body");
-body.append(hou,min,sec,task,subButton);
+let inputContatiner = document.querySelector("#edit-container");
+inputContatiner.append(hou,min,sec,task,subButton);
 
 subButton.onclick = function(){       
 
