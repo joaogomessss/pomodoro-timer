@@ -11,7 +11,7 @@ margin: 0;
 
 #container {
 
-justify-content: center;  
+
 
 
 
@@ -21,9 +21,6 @@ justify-content: center;
 
 text-align: center;
 color : white;
-font-size: 50px;
-font-size: 90px;
-
 font-family: 'Courier New', Courier, monospace;
  
 justify-content: center;
@@ -41,15 +38,14 @@ background-color: rgb(243, 53, 53);
 
 }
 
+#button-container {
 
-span {
-      display:flex;
-      justify-content: center;
-      
-      
-       
+               text-align: center;
+
+
 
 }
+
 
 
 button {
@@ -57,9 +53,8 @@ button {
         background-color : rgb(103, 212, 103);
         border-style:none;
         border-radius: 5px;
-        font-size: xx-large;
-        margin:50px;
-        padding:10px;
+        
+        
         
 
 
