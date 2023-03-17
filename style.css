@@ -57,6 +57,7 @@ button {
         border-radius: 5px;
         font-size: xx-large;
         margin:50px;
+        min-width: 100px;
 
 
 }
