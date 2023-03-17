@@ -1,12 +1,4 @@
 
-
-
-
-
-let startButton = document.querySelector("#start-button");
-startButton.onclick  = () => start();
-
-
 let editButton = document.querySelector("#edit-button").onclick = () => Edit();
 
 let display = document.querySelector("#display")
@@ -22,6 +14,128 @@ let minutes;
 let seconds;
 let taskChoosen;
 
+
+
+// This code will run in the main thread
+const workerScript = `
+// Paste the contents of 'pomodoro-worker.js' here
+let timeLeft = 0;
+let timerId = null;
+let interTime;
+
+let hours;
+let minutes;
+let seconds;
+let taskChoosen;
+
+let display;
+
+
+function startTimer(time) {
+timeLeft = time;
+
+interTime = new  Date().getTime() ;
+
+timeLeft = Math.floor((timeLeft - interTime) / 1000)  ;
+
+timerId = setInterval(() => {
+timeLeft--;
+
+hours = Math.floor(timeLeft / 3600 )
+minutes = Math.floor((timeLeft % 3600) / 60 );
+seconds = Math.floor(timeLeft % 60 );
+
+if(hours   < 10 ){ hours   = "0" + hours };
+if(minutes < 10 ){ minutes = "0" + minutes };
+if(seconds < 10 ){ seconds = "0" + seconds };
+
+display = hours + ":" + minutes + ":" + seconds ;
+
+
+
+if (timeLeft <= 0) {
+clearInterval(timerId);
+
+}
+postMessage(display);
+}, 1000);
+}
+
+function stopTimer() {
+clearInterval(timerId);
+postMessage(0);
+}
+
+onmessage = (event) => {
+const { type, data } = event.data;
+switch (type) {
+case 'start':
+startTimer(data);
+break;
+case 'stop':
+stopTimer();
+break;
+}
+};
+
+`;
+const blob = new Blob([workerScript], { type: 'application/javascript' });
+const blobUrl = URL.createObjectURL(blob);
+const worker = new Worker(blobUrl);
+
+
+// Start the timer for 25 minutes (1500 seconds)
+
+ 
+
+let startButton = document.querySelector("#start-button");
+startButton.onclick  =  function(){ 
+    
+    initialTime = new  Date().getTime() + 1000 + hours * 3600000 + minutes * 60000 + seconds * 1000;
+
+
+
+    worker.postMessage({ type: 'start', data: initialTime });  
+
+
+
+
+
+
+};
+
+
+
+
+
+
+worker.onmessage = (event) => {
+const timeLeft = event.data;
+// Update the UI with the time left
+display.textContent = timeLeft;
+if(timeLeft == "00:00:00"){let newTab = window.open();newTab.alert(taskChoosen); };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 let ac = { h:"" , m:"" , s:""  };
 
 function start() {   
@@ -32,19 +146,6 @@ function start() {
 loop = setInterval(function() {
 
 
-interTime = new  Date().getTime() ;
-
-remainingTime = Math.floor((initialTime - interTime) / 1000)  ;
-
-hours = Math.floor(remainingTime / 3600 )
-minutes = Math.floor((remainingTime % 3600) / 60 );
-seconds = Math.floor(remainingTime % 60 );
-
-if(hours   < 10 ){ hours   = "0" + hours };
-if(minutes < 10 ){ minutes = "0" + minutes };
-if(seconds < 10 ){ seconds = "0" + seconds };
-
-display.textContent = hours + ":" + minutes + ":" + seconds ;
 
 
 
@@ -52,22 +153,17 @@ display.textContent = hours + ":" + minutes + ":" + seconds ;
 
 
 if(remainingTime <= 0 ){ 
-    remainingTime = 0;
-    clearInterval(loop)  ; 
     
+    clearInterval(loop)  ; 
     loop = null;
-    let newTab = window.open();
-    newTab.alert(taskChoosen);
+    
 
-    update(remainingTime);
 
     hours = ac.h;
     minutes = ac.m;
     seconds = ac.s;
     taskChoosen = taskChoosen;
 }
-
-update(remainingTime);
 
 },1000)
 
@@ -83,6 +179,10 @@ function update(remainingTime){
 
 
 };
+
+
+
+
 
 
 function pause(){
