@@ -113,7 +113,11 @@ const timeLeft = event.data;
 // Update the UI with the time left
 display.textContent = timeLeft;
 if(taskChoosen == ""){taskChoosen = "time is over"};
-if(timeLeft == "00:00:00"){let newTab = window.open();newTab.alert(taskChoosen); 
+if(timeLeft == "00:00:00"){let newTab = window.open();newTab.alert(taskChoosen);
+    
+    hours = ac.h;
+    minutes = ac.m;
+    seconds = ac.s;
 
 if(hours == "" ){ hours = 0 };
 if(minutes  == "" ){ minutes = 0 };
@@ -126,9 +130,7 @@ if(seconds < 10 ){ seconds = "0" + seconds };
 display.textContent =  hours + ":" + minutes + ":" + seconds ;
 taskChoosen = taskChoosen;
 
-hours = ac.h;
-minutes = ac.m;
-seconds = ac.s;
+
 
 startButton.textContent = "Start";
 };
