@@ -110,7 +110,9 @@ startButton.onclick  =  function(){
 
 worker.onmessage = (event) => {
 const timeLeft = event.data;
+
 // Update the UI with the time left
+
 display.textContent = timeLeft;
 if(taskChoosen == ""){taskChoosen = "time is over"};
 if(timeLeft == "00:00:00"){let newTab = window.open();newTab.alert(taskChoosen);
