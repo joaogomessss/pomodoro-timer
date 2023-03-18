@@ -1,7 +1,8 @@
 
 body{  
 
-
+margin:0;
+padding:0;
 
 
 
@@ -13,7 +14,7 @@ body{
      display : flex;
      flex-direction: column;
      justify-content: space-between;
-     height: 100vh;
+     height:100vh;
 
 
 }
@@ -40,7 +41,16 @@ font-size:20vw;
 
 
 
+#box {   
+    display:flex;
+    flex-direction: column;
+    height:100vh;
+    justify-content: space-between;
+    
 
+
+
+}
 
 
 
@@ -48,6 +58,7 @@ font-size:20vw;
 body {
 
 background-color: rgb(243, 53, 53);
+min-height:100vh;
 
 
 
@@ -56,6 +67,7 @@ background-color: rgb(243, 53, 53);
 #button-container {
                
                text-align: center;
+               
                
 
 
@@ -71,7 +83,8 @@ button {
         border-radius: 5px;
         font-size: xx-large;
         min-width:100px;
-        margin:70px;
+        margin:50px;
+        
         
         
         
