@@ -19,9 +19,6 @@ interTime = new  Date().getTime() ;
 
 timeLeft = Math.floor((time - interTime) / 1000)  ;
 
-
-
-
 hours = Math.floor(timeLeft / 3600 )
 minutes = Math.floor((timeLeft % 3600) / 60 );
 seconds = Math.floor(timeLeft % 60 );
@@ -32,12 +29,8 @@ if(seconds < 10 ){ seconds = "0" + seconds };
 
 display = hours + ":" + minutes + ":" + seconds ;
 
-
-
-
 if (timeLeft <= 0) {
 clearInterval(timerId);
-
 
 }
 postMessage(display);
