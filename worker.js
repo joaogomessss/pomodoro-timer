@@ -6,20 +6,21 @@ let interTime;
 let hours;
 let minutes;
 let seconds;
-let taskChoosen;
+
 
 let display;
 
 
 function startTimer(time) {
-timeLeft = time;
+
+timerId = setInterval(() => {
 
 interTime = new  Date().getTime() ;
 
-timeLeft = Math.floor((timeLeft - interTime) / 1000)  ;
+timeLeft = Math.floor((time - interTime) / 1000)  ;
 
-timerId = setInterval(() => {
-timeLeft--;
+
+
 
 hours = Math.floor(timeLeft / 3600 )
 minutes = Math.floor((timeLeft % 3600) / 60 );

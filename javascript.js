@@ -20,7 +20,7 @@ let ac = { h:"" , m:"" , s:""  };
 
 // This code will run in the main thread
 const workerScript = `
-// Paste the contents of 'pomodoro-worker.js' here
+// This code will run in the Web Worker
 let timeLeft = 0;
 let timerId = null;
 let interTime;
@@ -28,20 +28,19 @@ let interTime;
 let hours;
 let minutes;
 let seconds;
-let taskChoosen;
+
 
 let display;
 
 
 function startTimer(time) {
-timeLeft = time;
+
+timerId = setInterval(() => {
 
 interTime = new  Date().getTime() ;
 
-timeLeft = Math.floor((timeLeft - interTime) / 1000)  ;
+timeLeft = Math.floor((time - interTime) / 1000)  ;
 
-timerId = setInterval(() => {
-timeLeft--;
 
 hours = Math.floor(timeLeft / 3600 )
 minutes = Math.floor((timeLeft % 3600) / 60 );
@@ -55,8 +54,10 @@ display = hours + ":" + minutes + ":" + seconds ;
 
 
 
+
 if (timeLeft <= 0) {
 clearInterval(timerId);
+
 
 }
 postMessage(display);
@@ -95,6 +96,7 @@ startButton.onclick  =  function(){
     
     initialTime = new  Date().getTime() + 1000 + hours * 3600000 + minutes * 60000 + seconds * 1000;
     worker.postMessage({ type: 'start', data: initialTime }); 
+    console.log(initialTime);
     
     startButton.textContent = "pause";
     
@@ -112,9 +114,6 @@ const timeLeft = event.data;
 display.textContent = timeLeft;
 if(taskChoosen == ""){taskChoosen = "time is over"};
 if(timeLeft == "00:00:00"){let newTab = window.open();newTab.alert(taskChoosen); 
-hours = ac.h;
-minutes = ac.m;
-seconds = ac.s;
 
 if(hours == "" ){ hours = 0 };
 if(minutes  == "" ){ minutes = 0 };
@@ -126,6 +125,10 @@ if(seconds < 10 ){ seconds = "0" + seconds };
 
 display.textContent =  hours + ":" + minutes + ":" + seconds ;
 taskChoosen = taskChoosen;
+
+hours = ac.h;
+minutes = ac.m;
+seconds = ac.s;
 
 startButton.textContent = "Start";
 };

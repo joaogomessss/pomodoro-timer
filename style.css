@@ -22,18 +22,14 @@ margin: 0;
 text-align: center;
 color : white;
 font-family: 'Courier New', Courier, monospace;
-font-size:100px;
-}
-
-@media(max-width:335px){
-
-#display{    
-
-        font-size:60px;
-   }
-
+font-size:10vw;
 
 }
+
+
+
+
+
 
 
 
@@ -48,7 +44,7 @@ background-color: rgb(243, 53, 53);
 }
 
 #button-container {
-
+               margin-top:200px;
                text-align: center;
 
 
