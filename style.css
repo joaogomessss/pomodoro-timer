@@ -67,6 +67,9 @@ min-height:100vh;
 #button-container {
                
                text-align: center;
+               display:flex;
+               justify-content: space-evenly;
+
                
                
 
