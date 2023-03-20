@@ -4,26 +4,18 @@ body{
 margin:0;
 padding:0;
 background-color: rgb(243, 53, 53);
-min-height:100vh;
-min-height:fill-available;
-min-height:-webkit-fill-available;
-
-}
-
-html{
-
-  height:fill-available;
-  height:-webkit-fill-available;
 
 
 }
+
+
 
 #container {
 
      display : flex;
      flex-direction: column;
      justify-content: space-between;
-     height:100vh;
+     height:90vh;
      
 
 
@@ -52,16 +44,7 @@ font-size:20vw;
 
 
 
-#box {   
-    display:flex;
-    flex-direction: column;
-    height:100vh;
-    justify-content: space-between;
-    
 
-
-
-}
 
 
 

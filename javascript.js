@@ -1,4 +1,7 @@
 
+
+
+
 let editButton = document.querySelector("#edit-button").onclick = () => Edit();
 
 let display = document.querySelector("#display")
@@ -117,9 +120,9 @@ display.textContent = timeLeft;
 if(taskChoosen == ""){taskChoosen = "time is over"};
 if(timeLeft == "00:00:00"){let newTab = window.open();newTab.alert(taskChoosen);
     
-    hours = ac.h;
-    minutes = ac.m;
-    seconds = ac.s;
+hours = ac.h;
+minutes = ac.m;
+seconds = ac.s;
 
 if(hours == "" ){ hours = 0 };
 if(minutes  == "" ){ minutes = 0 };
@@ -131,8 +134,6 @@ if(seconds < 10 ){ seconds = "0" + seconds };
 
 display.textContent =  hours + ":" + minutes + ":" + seconds ;
 taskChoosen = taskChoosen;
-
-
 
 startButton.textContent = "Start";
 };
