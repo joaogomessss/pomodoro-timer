@@ -27,8 +27,6 @@ background-color: rgb(243, 53, 53);
 text-align: center;
 color : white;
 font-family: 'Courier New', Courier, monospace;
-
-
 font-size:20vw;
 
 }
@@ -86,6 +84,14 @@ button {
 
           display:grid;
           margin:10px;
-
-
+          max-width:500px;
+          
+          
 }
+
+input{
+
+margin-bottom:5px;
+
+
+};

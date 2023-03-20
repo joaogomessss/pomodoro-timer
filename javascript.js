@@ -2,7 +2,8 @@
 
 
 
-let editButton = document.querySelector("#edit-button").onclick = () => Edit();
+let editButton = document.querySelector("#edit-button")
+editButton.onclick = () => Edit();
 
 let display = document.querySelector("#display")
 
@@ -40,10 +41,9 @@ function startTimer(time) {
 
 timerId = setInterval(() => {
 
-interTime = new  Date().getTime() ;
+interTime = new Date().getTime() ;
 
 timeLeft = Math.floor((time - interTime) / 1000)  ;
-
 
 hours = Math.floor(timeLeft / 3600 )
 minutes = Math.floor((timeLeft % 3600) / 60 );
@@ -53,14 +53,10 @@ if(hours   < 10 ){ hours   = "0" + hours };
 if(minutes < 10 ){ minutes = "0" + minutes };
 if(seconds < 10 ){ seconds = "0" + seconds };
 
-display = hours + ":" + minutes + ":" + seconds ;
-
-
-
+display = {h:hours , m:minutes , s:seconds };
 
 if (timeLeft <= 0) {
 clearInterval(timerId);
-
 
 }
 postMessage(display);
@@ -69,7 +65,8 @@ postMessage(display);
 
 function stopTimer() {
 clearInterval(timerId);
-postMessage(0);
+postMessage(display);
+
 }
 
 onmessage = (event) => {
@@ -95,18 +92,29 @@ const worker = new Worker(blobUrl);
  
 
 let startButton = document.querySelector("#start-button");
-startButton.onclick  =  function(){ 
+startButton.onclick  = () => Start();
+
+function Start(){ 
     
     initialTime = new  Date().getTime() + 1000 + hours * 3600000 + minutes * 60000 + seconds * 1000;
     worker.postMessage({ type: 'start', data: initialTime }); 
     console.log(initialTime);
-    
+
+    if( startButton.textContent == "Start") {
     startButton.textContent = "pause";
+    startButton.onclick  = () => pause();
+}       
     
 
 };
 
+function pause() {
 
+    worker.postMessage({ type: 'stop', data: initialTime }); 
+    startButton.textContent = "Start";
+    startButton.onclick  = () => Start();
+    
+};
 
 
 
@@ -116,9 +124,14 @@ const timeLeft = event.data;
 
 // Update the UI with the time left
 
-display.textContent = timeLeft;
+display.textContent = timeLeft.h + ":" + timeLeft.m + ":" + timeLeft.s  ;
+hours = timeLeft.h ; 
+minutes = timeLeft.m ;
+seconds = timeLeft.s; 
+
 if(taskChoosen == ""){taskChoosen = "time is over"};
-if(timeLeft == "00:00:00"){let newTab = window.open();newTab.alert(taskChoosen);
+
+if(display.textContent == "00:00:00"){let newTab = window.open();newTab.alert(taskChoosen);
     
 hours = ac.h;
 minutes = ac.m;
@@ -136,12 +149,15 @@ display.textContent =  hours + ":" + minutes + ":" + seconds ;
 taskChoosen = taskChoosen;
 
 startButton.textContent = "Start";
+startButton.onclick  = () => Start();
 };
 };
 
 
 
 function Edit() {
+
+editButton.onclick = console.log();
 
 let hou = document.createElement("input");   hou.setAttribute("placeholder","horas");
 let min = document.createElement("input"); min.setAttribute("placeholder","minutos");
@@ -154,11 +170,13 @@ inputContatiner.append(hou,min,sec,task,subButton);
 
 subButton.onclick = function(){       
 
- ac.h = hou.value;
+   
+editButton.onclick = () => Edit();
+
+ac.h = hou.value;
 ac.m = min.value;
 ac.s = sec.value;
 taskChoosen = task.value;
-
 
 hours = hou.value;
 minutes = min.value;
