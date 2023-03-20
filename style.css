@@ -3,6 +3,17 @@ body{
 
 margin:0;
 padding:0;
+background-color: rgb(243, 53, 53);
+min-height:100vh;
+min-height:fill-available;
+min-height:-webkit-fill-available;
+
+}
+
+html{
+
+  height:fill-available;
+  height:-webkit-fill-available;
 
 
 }
@@ -13,6 +24,8 @@ padding:0;
      flex-direction: column;
      justify-content: space-between;
      height:100vh;
+     
+
 
 
 }
@@ -53,14 +66,7 @@ font-size:20vw;
 
 
 
-body {
 
-background-color: rgb(243, 53, 53);
-min-height:100vh;
-
-
-
-}
 
 #button-container {
                
