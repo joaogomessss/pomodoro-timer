@@ -12,13 +12,13 @@ let remainingTime
 let initialTime;
 let interTime;
 
+let taskChoosen;
 
 let hours;
 let minutes;
 let seconds;
-let taskChoosen;
 
-let ac = { h:"" , m:"" , s:""  };
+let time = {hours:"" , minutes:"" , seconds:"" };
 
 
 
@@ -33,17 +33,37 @@ let hours;
 let minutes;
 let seconds;
 
+let condition;
+
+let actualSetting = { hours:"" , minutes:"" , seconds:""     };
 
 let display;
 
 
 function startTimer(time) {
 
+actualSetting.hours = time.hours ;
+actualSetting.minutes = time.minutes ;
+actualSetting.seconds = time.seconds ;
+
+if(condition != "paused" )   {   
+
+hours = time.hours ;
+minutes = time.minutes ;
+seconds = time.seconds;
+
+}
+
+initialTime = new  Date().getTime() + 1000 + hours * 3600000 + minutes * 60000 + seconds * 1000;
+console.log(initialTime);
+
 timerId = setInterval(() => {
+
+    
 
 interTime = new Date().getTime() ;
 
-timeLeft = Math.floor((time - interTime) / 1000)  ;
+timeLeft = Math.floor((initialTime - interTime) / 1000)  ;
 
 hours = Math.floor(timeLeft / 3600 )
 minutes = Math.floor((timeLeft % 3600) / 60 );
@@ -53,10 +73,21 @@ if(hours   < 10 ){ hours   = "0" + hours };
 if(minutes < 10 ){ minutes = "0" + minutes };
 if(seconds < 10 ){ seconds = "0" + seconds };
 
-display = {h:hours , m:minutes , s:seconds };
+display = hours + ":" + minutes + ":" + seconds ;
 
 if (timeLeft <= 0) {
 clearInterval(timerId);
+
+if(actualSetting.hours  < 10 ){ actualSetting.hours   = "0" + actualSetting.hours };
+if(actualSetting.minutes < 10 ){ actualSetting.minutes = "0" + actualSetting.minutes };
+if(actualSetting.seconds < 10 ){ actualSetting.seconds = "0" + actualSetting.seconds };
+
+
+hours = actualSetting.hours ;
+minutes = actualSetting.minutes ;
+seconds = actualSetting.seconds ;
+
+
 
 }
 postMessage(display);
@@ -65,6 +96,13 @@ postMessage(display);
 
 function stopTimer() {
 clearInterval(timerId);
+
+hours = hours;
+minutes = minutes;
+seconds = seconds;
+
+condition = "paused";
+
 postMessage(display);
 
 }
@@ -96,12 +134,11 @@ startButton.onclick  = () => Start();
 
 function Start(){ 
     
-    initialTime = new  Date().getTime() + 1000 + hours * 3600000 + minutes * 60000 + seconds * 1000;
-    worker.postMessage({ type: 'start', data: initialTime }); 
-    console.log(initialTime);
+    
+    worker.postMessage({ type: 'start', data: time }); 
 
     if( startButton.textContent == "Start") {
-    startButton.textContent = "pause";
+    startButton.textContent = "Pause";
     startButton.onclick  = () => pause();
 }       
     
@@ -119,33 +156,24 @@ function pause() {
 
 
 
-worker.onmessage = (event) => {
+worker.onmessage = (event) => { 
 const timeLeft = event.data;
 
-// Update the UI with the time left
+display.textContent = timeLeft ;
 
-display.textContent = timeLeft.h + ":" + timeLeft.m + ":" + timeLeft.s  ;
-hours = timeLeft.h ; 
-minutes = timeLeft.m ;
-seconds = timeLeft.s; 
+if(timeLeft == "00:00:00"){let newTab = window.open();newTab.alert(taskChoosen);
+display.textContent = hours + ":" + minutes + ":" + seconds ;
 
 if(taskChoosen == ""){taskChoosen = "time is over"};
 
-if(display.textContent == "00:00:00"){let newTab = window.open();newTab.alert(taskChoosen);
+
     
-hours = ac.h;
-minutes = ac.m;
-seconds = ac.s;
 
 if(hours == "" ){ hours = 0 };
 if(minutes  == "" ){ minutes = 0 };
 if(seconds  == "" ){ seconds =  0 };
 
-if(hours  < 10 ){ hours   = "0" + hours };
-if(minutes< 10 ){ minutes = "0" + minutes };
-if(seconds < 10 ){ seconds = "0" + seconds };
 
-display.textContent =  hours + ":" + minutes + ":" + seconds ;
 taskChoosen = taskChoosen;
 
 startButton.textContent = "Start";
@@ -173,23 +201,23 @@ subButton.onclick = function(){
    
 editButton.onclick = () => Edit();
 
-ac.h = hou.value;
-ac.m = min.value;
-ac.s = sec.value;
+time.hours = hou.value;
+time.minutes = min.value;
+time.seconds = sec.value;
 taskChoosen = task.value;
 
-hours = hou.value;
-minutes = min.value;
-seconds = sec.value;
+hours = time.hours
+minutes = time.minutes;
+seconds = time.seconds;
 taskChoosen = task.value;
 
 if(hou.value  == "" ){ hours = 0 };
 if(min.value  == "" ){ minutes = 0 };
-if(sec.value  == "" ){ seconds =  0 };
+if(sec.value  == "" ){seconds =  0 };
 
-if(hou.value  < 10 ){ hours   = "0" + hours };
-if(min.value < 10 ){ minutes = "0" + minutes };
-if(sec.value < 10 ){ seconds = "0" + seconds };
+if(hours < 10 ){ hours   = "0" + hours };
+if(minutes < 10 ){ minutes = "0" + minutes };
+if(seconds < 10 ){ seconds = "0" + seconds };
 
 
 
