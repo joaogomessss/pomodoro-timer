@@ -85,7 +85,7 @@ if(minutes < 10 ){ minutes = "0" + minutes };
 if(seconds < 10 ){ seconds = "0" + seconds };
 
 display = hours + ":" + minutes + ":" + seconds ;
-console.log(display);
+
 
 }
 postMessage(display);
@@ -150,11 +150,19 @@ worker.onmessage = (event) => {
 const timeLeft = event.data;
 
 display.textContent = timeLeft ;
-console.log(timeLeft);
-
-if(timeLeft == "00:00:01" ){ window.open()};
 
 if(taskChoosen == ""){taskChoosen = "time is over"};
+
+if(timeLeft == "00:00:01" ){
+    
+    window.open("www.google.com");
+    alert(taskChoosen);
+    startButton.textContent = "Start";
+    startButton.onclick  = () => Start();
+
+
+};
+
 
 taskChoosen = taskChoosen;
 

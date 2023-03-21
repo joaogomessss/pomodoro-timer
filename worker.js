@@ -30,11 +30,9 @@ seconds = time.seconds;
 }
 
 initialTime = new  Date().getTime() + 1000 + hours * 3600000 + minutes * 60000 + seconds * 1000;
-console.log(initialTime);
+
 
 timerId = setInterval(() => {
-
-    
 
 interTime = new Date().getTime() ;
 
@@ -62,7 +60,7 @@ if(minutes < 10 ){ minutes = "0" + minutes };
 if(seconds < 10 ){ seconds = "0" + seconds };
 
 display = hours + ":" + minutes + ":" + seconds ;
-console.log(display);
+
 
 }
 postMessage(display);
