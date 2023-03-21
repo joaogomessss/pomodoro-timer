@@ -154,11 +154,12 @@ display.textContent = timeLeft ;
 if(taskChoosen == ""){taskChoosen = "time is over"};
 
 if(timeLeft == "00:00:01" ){
-    
-    alert(taskChoosen);
+
+    let newWindow = window.open();
+    newWindow.focus();
+    newWindow.alert(taskChoosen);
     startButton.textContent = "Start";
     startButton.onclick  = () => Start();
-
 
 };
 
