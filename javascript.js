@@ -87,6 +87,7 @@ hours = actualSetting.hours ;
 minutes = actualSetting.minutes ;
 seconds = actualSetting.seconds ;
 
+display = hours + ":" + minutes + ":" + seconds ;
 
 
 }
@@ -124,16 +125,10 @@ const blob = new Blob([workerScript], { type: 'application/javascript' });
 const blobUrl = URL.createObjectURL(blob);
 const worker = new Worker(blobUrl);
 
-
-// Start the timer for 25 minutes (1500 seconds)
-
- 
-
 let startButton = document.querySelector("#start-button");
 startButton.onclick  = () => Start();
 
 function Start(){ 
-    
     
     worker.postMessage({ type: 'start', data: time }); 
 
@@ -142,7 +137,6 @@ function Start(){
     startButton.onclick  = () => pause();
 }       
     
-
 };
 
 function pause() {
@@ -161,8 +155,6 @@ const timeLeft = event.data;
 
 display.textContent = timeLeft ;
 
-if(timeLeft == "00:00:00"){let newTab = window.open();newTab.alert(taskChoosen);
-display.textContent = hours + ":" + minutes + ":" + seconds ;
 
 if(taskChoosen == ""){taskChoosen = "time is over"};
 
@@ -178,7 +170,7 @@ taskChoosen = taskChoosen;
 
 startButton.textContent = "Start";
 startButton.onclick  = () => Start();
-};
+
 };
 
 

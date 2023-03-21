@@ -61,6 +61,7 @@ hours = actualSetting.hours ;
 minutes = actualSetting.minutes ;
 seconds = actualSetting.seconds ;
 
+display = hours + ":" + minutes + ":" + seconds ;
 
 
 }
