@@ -155,7 +155,6 @@ if(taskChoosen == ""){taskChoosen = "time is over"};
 
 if(timeLeft == "00:00:01" ){
     
-    window.open("www.google.com");
     alert(taskChoosen);
     startButton.textContent = "Start";
     startButton.onclick  = () => Start();
