@@ -160,6 +160,7 @@ if(timeLeft == "00:00:01" ){
     newWindow.alert(taskChoosen);
     startButton.textContent = "Start";
     startButton.onclick  = () => Start();
+    console.log();
 
 };
 
