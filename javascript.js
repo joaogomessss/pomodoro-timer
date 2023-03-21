@@ -1,7 +1,4 @@
 
-
-
-
 let editButton = document.querySelector("#edit-button")
 editButton.onclick = () => Edit();
 
@@ -18,7 +15,7 @@ let hours;
 let minutes;
 let seconds;
 
-let time = {hours:"" , minutes:"" , seconds:"" };
+let time = {hours:"" , minutes:"" , seconds:"" , };
 
 
 
@@ -35,7 +32,7 @@ let seconds;
 
 let condition;
 
-let actualSetting = { hours:"" , minutes:"" , seconds:""     };
+let actualSetting = { hours:"" , minutes:"" , seconds:""};
 
 let display;
 
@@ -45,6 +42,7 @@ function startTimer(time) {
 actualSetting.hours = time.hours ;
 actualSetting.minutes = time.minutes ;
 actualSetting.seconds = time.seconds ;
+
 
 if(condition != "paused" )   {   
 
@@ -78,17 +76,16 @@ display = hours + ":" + minutes + ":" + seconds ;
 if (timeLeft <= 0) {
 clearInterval(timerId);
 
-if(actualSetting.hours  < 10 ){ actualSetting.hours   = "0" + actualSetting.hours };
-if(actualSetting.minutes < 10 ){ actualSetting.minutes = "0" + actualSetting.minutes };
-if(actualSetting.seconds < 10 ){ actualSetting.seconds = "0" + actualSetting.seconds };
-
-
 hours = actualSetting.hours ;
 minutes = actualSetting.minutes ;
-seconds = actualSetting.seconds ;
+seconds = actualSetting.seconds ; 
+
+if(hours   < 10 ){ hours   = "0" + hours };
+if(minutes < 10 ){ minutes = "0" + minutes };
+if(seconds < 10 ){ seconds = "0" + seconds };
 
 display = hours + ":" + minutes + ":" + seconds ;
-
+console.log(display);
 
 }
 postMessage(display);
@@ -131,19 +128,18 @@ startButton.onclick  = () => Start();
 function Start(){ 
     
     worker.postMessage({ type: 'start', data: time }); 
-
-    if( startButton.textContent == "Start") {
     startButton.textContent = "Pause";
     startButton.onclick  = () => pause();
-}       
+        
     
 };
 
 function pause() {
 
-    worker.postMessage({ type: 'stop', data: initialTime }); 
+    worker.postMessage({ type: 'stop', data: time }); 
     startButton.textContent = "Start";
     startButton.onclick  = () => Start();
+    
     
 };
 
@@ -154,22 +150,14 @@ worker.onmessage = (event) => {
 const timeLeft = event.data;
 
 display.textContent = timeLeft ;
+console.log(timeLeft);
 
+if(timeLeft == "00:00:01" ){ window.open()};
 
 if(taskChoosen == ""){taskChoosen = "time is over"};
 
-
-    
-
-if(hours == "" ){ hours = 0 };
-if(minutes  == "" ){ minutes = 0 };
-if(seconds  == "" ){ seconds =  0 };
-
-
 taskChoosen = taskChoosen;
 
-startButton.textContent = "Start";
-startButton.onclick  = () => Start();
 
 };
 
@@ -193,25 +181,27 @@ subButton.onclick = function(){
    
 editButton.onclick = () => Edit();
 
+hours = hou.value
+minutes = min.value
+seconds = sec.value;
+taskChoosen = task.value;
+
+if(hours == 0 ){ hours   = 0 };
+if(minutes == 0 ){ minutes = 0 };
+if(seconds == 0 ){ seconds = 0 }; 
+
+if(hours < 10 ){ hours   = "0" + hours };
+if(minutes < 10 ){ minutes = "0" + minutes };
+if(seconds < 10 ){ seconds = "0" + seconds }; 
+
 time.hours = hou.value;
 time.minutes = min.value;
 time.seconds = sec.value;
 taskChoosen = task.value;
 
-hours = time.hours
-minutes = time.minutes;
-seconds = time.seconds;
-taskChoosen = task.value;
-
-if(hou.value  == "" ){ hours = 0 };
-if(min.value  == "" ){ minutes = 0 };
-if(sec.value  == "" ){seconds =  0 };
-
-if(hours < 10 ){ hours   = "0" + hours };
-if(minutes < 10 ){ minutes = "0" + minutes };
-if(seconds < 10 ){ seconds = "0" + seconds };
-
-
+if(time.hours == 0 ){ time.hours   = 0 };
+if(time.minutes == 0 ){ time.minutes = 0 };
+if(time.seconds == 0 ){ time.seconds = 0 }; 
 
 display.textContent = hours + ":" + minutes + ":" + seconds ;
 

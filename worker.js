@@ -9,7 +9,7 @@ let seconds;
 
 let condition;
 
-let actualSetting = { hours:"" , minutes:"" , seconds:""     };
+let actualSetting = { hours:"" , minutes:"" , seconds:""};
 
 let display;
 
@@ -19,6 +19,7 @@ function startTimer(time) {
 actualSetting.hours = time.hours ;
 actualSetting.minutes = time.minutes ;
 actualSetting.seconds = time.seconds ;
+
 
 if(condition != "paused" )   {   
 
@@ -52,17 +53,16 @@ display = hours + ":" + minutes + ":" + seconds ;
 if (timeLeft <= 0) {
 clearInterval(timerId);
 
-if(actualSetting.hours  < 10 ){ actualSetting.hours   = "0" + actualSetting.hours };
-if(actualSetting.minutes < 10 ){ actualSetting.minutes = "0" + actualSetting.minutes };
-if(actualSetting.seconds < 10 ){ actualSetting.seconds = "0" + actualSetting.seconds };
-
-
 hours = actualSetting.hours ;
 minutes = actualSetting.minutes ;
-seconds = actualSetting.seconds ;
+seconds = actualSetting.seconds ; 
+
+if(hours   < 10 ){ hours   = "0" + hours };
+if(minutes < 10 ){ minutes = "0" + minutes };
+if(seconds < 10 ){ seconds = "0" + seconds };
 
 display = hours + ":" + minutes + ":" + seconds ;
-
+console.log(display);
 
 }
 postMessage(display);
