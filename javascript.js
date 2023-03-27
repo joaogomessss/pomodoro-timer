@@ -1,11 +1,14 @@
 
-// Get the notification button element
-const notificationBtn = document.getElementById('notification-btn');
-
-
-
-
-
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js')
+      .then(function(registration) {
+        
+      }, function(err) {
+  
+      });
+  });
+}
 
 
 let editButton = document.querySelector("#edit-button")
@@ -62,7 +65,6 @@ seconds = time.seconds;
 }
 
 initialTime = new  Date().getTime() + 1000 + hours * 3600000 + minutes * 60000 + seconds * 1000;
-console.log(initialTime);
 
 timerId = setInterval(() => {
 
@@ -165,6 +167,7 @@ if(taskChoosen == ""){taskChoosen = "time is over"};
 if(timeLeft == "00:00:01" ){
 
  
+   
     // Request permission to show notifications
     Notification.requestPermission()
       .then(function(permission) {
@@ -172,8 +175,8 @@ if(timeLeft == "00:00:01" ){
           // Create a notification
           navigator.serviceWorker.ready
             .then(function(registration) {
-              registration.showNotification('O tempo acabou', {
-                body: 'O tempo acabou',
+              registration.showNotification("Time is over", {
+                body: taskChoosen ,
                 icon: 'path/to/icon.png'
               });
             });
@@ -185,11 +188,7 @@ if(timeLeft == "00:00:01" ){
     event.notification.close();
   });
   
-  
 
-   /* let newWindow = window.open();
-    newWindow.focus();
-    newWindow.alert(taskChoosen); */
     startButton.textContent = "Start";
     startButton.onclick  = () => Start();
     console.log();
@@ -204,47 +203,64 @@ taskChoosen = taskChoosen;
 
 
 
-function Edit() {
+function Edit() { // this function will create four inputs for the user choose the amount of time 
 
 editButton.onclick = console.log();
 
-let hou = document.createElement("input");   hou.setAttribute("placeholder","horas");
-let min = document.createElement("input"); min.setAttribute("placeholder","minutos");
-let sec = document.createElement("input"); sec.setAttribute("placeholder","segundos");
-let task = document.createElement("input"); task.setAttribute("placeholder","mensagem(opcional)");
+let hou  = document.createElement("input");   hou.setAttribute("placeholder","horas");
+let min  = document.createElement("input");   min.setAttribute("placeholder","minutos");
+let sec  = document.createElement("input");   sec.setAttribute("placeholder","segundos");
+let task = document.createElement("input");   task.setAttribute("placeholder","mensagem(opcional)");
 let subButton = document.createElement("button"); subButton.textContent = "ok" ;
 
 let inputContatiner = document.querySelector("#edit-container");
 inputContatiner.append(hou,min,sec,task,subButton);
+
+
+
+if(hours   == undefined){ }else{hou.value = time.hours} 
+if(minutes == undefined){ }else{min.value = time.minutes} 
+if(seconds == undefined){ }else{sec.value = time.seconds} 
+if(taskChoosen == undefined){ }else{task.value = taskChoosen} 
+
+
 
 subButton.onclick = function(){       
 
    
 editButton.onclick = () => Edit();
 
+
+
 hours = hou.value
 minutes = min.value
 seconds = sec.value;
 taskChoosen = task.value;
 
-if(hours == 0 ){ hours   = 0 };
+/* when the signals (   == << become sicronized with the below become much more beautiufl
+=   <
+=   <
+=   <
+=   <
+*/
+if(hours   == 0 ){ hours   = 0 };
 if(minutes == 0 ){ minutes = 0 };
 if(seconds == 0 ){ seconds = 0 }; 
 
-if(hours < 10 ){ hours   = "0" + hours };
-if(minutes < 10 ){ minutes = "0" + minutes };
-if(seconds < 10 ){ seconds = "0" + seconds }; 
+if(hours   < 10 ){ hours     = "0" + hours };
+if(minutes < 10 ){ minutes   = "0" + minutes };
+if(seconds < 10 ){ seconds   = "0" + seconds }; 
 
-time.hours = hou.value;
+time.hours   = hou.value;
 time.minutes = min.value;
 time.seconds = sec.value;
-taskChoosen = task.value;
+taskChoosen  = task.value;
 
-if(time.hours == 0 ){ time.hours   = 0 };
+if(time.hours   == 0 ){ time.hours   = 0 };
 if(time.minutes == 0 ){ time.minutes = 0 };
 if(time.seconds == 0 ){ time.seconds = 0 }; 
 
-display.textContent = hours + ":" + minutes + ":" + seconds ;
+display.textContent = hours + ":" + minutes +  ":" + seconds ;
 
 hou.remove();
 min.remove();
