@@ -1,4 +1,13 @@
 
+// Get the notification button element
+const notificationBtn = document.getElementById('notification-btn');
+
+
+
+
+
+
+
 let editButton = document.querySelector("#edit-button")
 editButton.onclick = () => Edit();
 
@@ -155,9 +164,32 @@ if(taskChoosen == ""){taskChoosen = "time is over"};
 
 if(timeLeft == "00:00:01" ){
 
-    let newWindow = window.open();
+ 
+    // Request permission to show notifications
+    Notification.requestPermission()
+      .then(function(permission) {
+        if (permission === 'granted') {
+          // Create a notification
+          navigator.serviceWorker.ready
+            .then(function(registration) {
+              registration.showNotification('O tempo acabou', {
+                body: 'O tempo acabou',
+                icon: 'path/to/icon.png'
+              });
+            });
+        }
+      });
+  
+  
+  self.addEventListener('notificationclick', function(event) {
+    event.notification.close();
+  });
+  
+  
+
+   /* let newWindow = window.open();
     newWindow.focus();
-    newWindow.alert(taskChoosen);
+    newWindow.alert(taskChoosen); */
     startButton.textContent = "Start";
     startButton.onclick  = () => Start();
     console.log();
