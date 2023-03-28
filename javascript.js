@@ -66,15 +66,14 @@ seconds = time.seconds;
 
 initialTime = new  Date().getTime() + 1000 + hours * 3600000 + minutes * 60000 + seconds * 1000;
 
-timerId = setInterval(() => {
 
-    
+timerId = setInterval(() => {
 
 interTime = new Date().getTime() ;
 
 timeLeft = Math.floor((initialTime - interTime) / 1000)  ;
 
-hours = Math.floor(timeLeft / 3600 )
+hours   = Math.floor(timeLeft / 3600 )
 minutes = Math.floor((timeLeft % 3600) / 60 );
 seconds = Math.floor(timeLeft % 60 );
 
@@ -87,7 +86,7 @@ display = hours + ":" + minutes + ":" + seconds ;
 if (timeLeft <= 0) {
 clearInterval(timerId);
 
-hours = actualSetting.hours ;
+hours   = actualSetting.hours ;
 minutes = actualSetting.minutes ;
 seconds = actualSetting.seconds ; 
 
@@ -103,10 +102,12 @@ postMessage(display);
 }, 1000);
 }
 
-function stopTimer() {
+
+
+function stopTimer() { // This function will pause the timer when the user click on the button 
 clearInterval(timerId);
 
-hours = hours;
+hours   = hours;
 minutes = minutes;
 seconds = seconds;
 
@@ -139,7 +140,7 @@ startButton.onclick  = () => Start();
 function Start(){ 
     
     worker.postMessage({ type: 'start', data: time }); 
-    startButton.textContent = "Pause";
+    startButton.textContent = "Pausemiro";
     startButton.onclick  = () => pause();
         
     
@@ -159,11 +160,8 @@ function pause() {
 
 worker.onmessage = (event) => { 
 
-  startButton.textContent = "galo";
-
   if(event.data == "00:00:01" ){
 
-   
     // Request permission to show notifications
     Notification.requestPermission()
       .then(function(permission) {
@@ -171,9 +169,8 @@ worker.onmessage = (event) => {
           // Create a notification
           navigator.serviceWorker.ready
             .then(function(registration) {
-              registration.showNotification("Time is ove33r", {
+              registration.showNotification("Time is over", {
                 body: taskChoosen ,
-                icon: 'path/to/icon.png'
               });
             });
         }
@@ -185,23 +182,18 @@ worker.onmessage = (event) => {
   });
   
 
-    
+    startButton.textContent = "Start";
     startButton.onclick  = () => Start();
     console.log();
 
 };
 
-const timeLeft = event.data;
 
-display.textContent = timeLeft ;
+display.textContent = event.data;
 
 if(taskChoosen == ""){taskChoosen = "time is over"};
 
-
-
-
 taskChoosen = taskChoosen;
-
 
 };
 
