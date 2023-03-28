@@ -159,6 +159,8 @@ function pause() {
 
 worker.onmessage = (event) => { 
 
+  startButton.textContent = "galo";
+
   if(event.data == "00:00:01" ){
 
    
@@ -183,7 +185,7 @@ worker.onmessage = (event) => {
   });
   
 
-    startButton.textContent = "Start";
+    
     startButton.onclick  = () => Start();
     console.log();
 
