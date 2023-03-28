@@ -80,7 +80,10 @@ condition = "paused";
 
 postMessage(display);
 
-}
+};
+
+
+
 
 onmessage = (event) => {
 const { type, data } = event.data;

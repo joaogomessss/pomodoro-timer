@@ -49,6 +49,7 @@ let actualSetting = { hours:"" , minutes:"" , seconds:""};
 let display;
 
 
+
 function startTimer(time) {
 
 actualSetting.hours = time.hours ;
@@ -115,7 +116,10 @@ condition = "paused";
 
 postMessage(display);
 
-}
+};
+
+
+
 
 onmessage = (event) => {
 const { type, data } = event.data;
@@ -137,29 +141,69 @@ const worker = new Worker(blobUrl);
 let startButton = document.querySelector("#start-button");
 startButton.onclick  = () => Start();
 
-function Start(){ 
+function Start(){ // this function will send a message to the webworker start the pomodoro
     
     worker.postMessage({ type: 'start', data: time }); 
-    startButton.textContent = "Pausemiro";
+    startButton.textContent = "Pause";
     startButton.onclick  = () => pause();
         
-    
 };
 
-function pause() {
+function pause() {// This function will send a message  to the webworker pause the pomodoro
 
     worker.postMessage({ type: 'stop', data: time }); 
     startButton.textContent = "Start";
-    startButton.onclick  = () => Start();
-    
-    
+    startButton.onclick  = () => Start(); 
 };
 
 
+function greenWood(data){
+
+display.textContent =  data;
+
+if(data == "00:00:01" ){
+
+  // Request permission to show notifications
+  Notification.requestPermission()
+    .then(function(permission) {
+      if (permission === 'granted') {
+        // Create a notification
+        navigator.serviceWorker.ready
+          .then(function(registration) {
+            registration.showNotification("Time is over", {
+              body: taskChoosen ,
+            });
+          });
+      }
+    });
+
+
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+});
+
+
+  startButton.textContent = "brague";
+  startButton.onclick  = () => Start();
+  console.log();
+
+};
+
+
+display.textContent = event.data;
+
+if(taskChoosen == ""){taskChoosen = "time is over"};
+
+taskChoosen = taskChoosen;
+
+};
 
 
 worker.onmessage = (event) => { 
 
+ greenWood(event.data);
+
+  /*
   if(event.data == "00:00:01" ){
 
     // Request permission to show notifications
@@ -194,6 +238,8 @@ display.textContent = event.data;
 if(taskChoosen == ""){taskChoosen = "time is over"};
 
 taskChoosen = taskChoosen;
+
+*/
 
 };
 
