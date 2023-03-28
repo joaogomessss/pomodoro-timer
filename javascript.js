@@ -158,15 +158,9 @@ function pause() {
 
 
 worker.onmessage = (event) => { 
-const timeLeft = event.data;
 
-display.textContent = timeLeft ;
+  if(event.data == "00:00:01" ){
 
-if(taskChoosen == ""){taskChoosen = "time is over"};
-
-if(timeLeft == "00:00:01" ){
-
- 
    
     // Request permission to show notifications
     Notification.requestPermission()
@@ -175,7 +169,7 @@ if(timeLeft == "00:00:01" ){
           // Create a notification
           navigator.serviceWorker.ready
             .then(function(registration) {
-              registration.showNotification("Time is over", {
+              registration.showNotification("Time is ove33r", {
                 body: taskChoosen ,
                 icon: 'path/to/icon.png'
               });
@@ -194,6 +188,14 @@ if(timeLeft == "00:00:01" ){
     console.log();
 
 };
+
+const timeLeft = event.data;
+
+display.textContent = timeLeft ;
+
+if(taskChoosen == ""){taskChoosen = "time is over"};
+
+
 
 
 taskChoosen = taskChoosen;

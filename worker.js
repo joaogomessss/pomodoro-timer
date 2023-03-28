@@ -38,7 +38,7 @@ interTime = new Date().getTime() ;
 
 timeLeft = Math.floor((initialTime - interTime) / 1000)  ;
 
-hours = Math.floor(timeLeft / 3600 )
+hours   = Math.floor(timeLeft / 3600 )
 minutes = Math.floor((timeLeft % 3600) / 60 );
 seconds = Math.floor(timeLeft % 60 );
 
@@ -51,7 +51,7 @@ display = hours + ":" + minutes + ":" + seconds ;
 if (timeLeft <= 0) {
 clearInterval(timerId);
 
-hours = actualSetting.hours ;
+hours   = actualSetting.hours ;
 minutes = actualSetting.minutes ;
 seconds = actualSetting.seconds ; 
 
@@ -67,10 +67,12 @@ postMessage(display);
 }, 1000);
 }
 
-function stopTimer() {
+
+
+function stopTimer() { // This function will pause the timer when the user click on the button 
 clearInterval(timerId);
 
-hours = hours;
+hours   = hours;
 minutes = minutes;
 seconds = seconds;
 
