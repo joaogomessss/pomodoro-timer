@@ -173,7 +173,7 @@ worker.onmessage = (event) => {
   if(event.data == "00:00:00"){
     
   
-    startButton.textContent = "Start";
+    startButton.textContent = "BRAGUE";
   };
 
 
