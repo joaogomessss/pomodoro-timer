@@ -52,6 +52,9 @@ let display;
 
 function startTimer(time) {
 
+  
+
+  
 actualSetting.hours = time.hours ;
 actualSetting.minutes = time.minutes ;
 actualSetting.seconds = time.seconds ;
@@ -97,6 +100,7 @@ if(seconds < 10 ){ seconds = "0" + seconds };
 
 display = hours + ":" + minutes + ":" + seconds ;
 
+let x = new Notification("time is over") ;
 
 }
 postMessage(display);
@@ -141,7 +145,7 @@ const worker = new Worker(blobUrl);
 let startButton = document.querySelector("#start-button");
 startButton.onclick  = () => Start();
 
-function Start(){ // this function will send a message to the webworker start the pomodoro
+function Start(){ // this function will send a message to the webworker start the pomodor
     
     worker.postMessage({ type: 'start', data: time }); 
     startButton.textContent = "Pause";
@@ -161,47 +165,20 @@ function pause() {// This function will send a message  to the webworker pause t
 
 
 
-
 worker.onmessage = (event) => { 
 
   display.textContent = event.data;
 
-    // Request permission to show notifications
-    Notification.requestPermission()
- .then(function(permission) {
-        if (permission === 'granted' && event.data == "00:00:01") {
-          // Create a notification
-          navigator.serviceWorker.ready
-            .then(function(registration) {
-              startButton.textContent = "rony";
-              registration.showNotification("Time is over", {
-                body: taskChoosen ,
-              });
-            });
-             }
-      });
+  if(event.data == "00:00:01"){
+    
+    
   
-  
-  self.addEventListener('notificationclick', function(event) {
-    event.notification.close();
-  });
-  
-/*
-   
-    startButton.onclick  = () => Start();
-    console.log();
+    startButton.textContent = "Start";
+  };
 
 
 
 
-display.textContent = event.data;
-
-if(taskChoosen == ""){taskChoosen = "time is over"};
-
-taskChoosen = taskChoosen;
-
-
-*/
 };
 
 

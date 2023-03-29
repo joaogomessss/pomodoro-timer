@@ -16,6 +16,8 @@ let display;
 
 function startTimer(time) {
 
+    
+
 actualSetting.hours = time.hours ;
 actualSetting.minutes = time.minutes ;
 actualSetting.seconds = time.seconds ;
@@ -61,6 +63,7 @@ if(seconds < 10 ){ seconds = "0" + seconds };
 
 display = hours + ":" + minutes + ":" + seconds ;
 
+let x = new Notification("time is over") ;
 
 }
 postMessage(display);
