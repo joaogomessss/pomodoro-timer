@@ -87,20 +87,23 @@ if(seconds < 10 ){ seconds = "0" + seconds };
 
 display = hours + ":" + minutes + ":" + seconds ;
 
-if (timeLeft <= 0) {
+if (timeLeft == 0) {
+
+  let x = new Notification("astronalta") ;
+
 clearInterval(timerId);
 
 hours   = actualSetting.hours ;
 minutes = actualSetting.minutes ;
 seconds = actualSetting.seconds ; 
 
-if(hours   < 10 ){ hours   = "0" + hours };
+if(hours   < 10 ){ hours   = "0" + hours }; 
 if(minutes < 10 ){ minutes = "0" + minutes };
 if(seconds < 10 ){ seconds = "0" + seconds };
 
 display = hours + ":" + minutes + ":" + seconds ;
 
-let x = new Notification("time is over") ;
+
 
 }
 postMessage(display);
@@ -170,7 +173,6 @@ worker.onmessage = (event) => {
   display.textContent = event.data;
 
   if(event.data == "00:00:01"){
-    
     
   
     startButton.textContent = "Start";

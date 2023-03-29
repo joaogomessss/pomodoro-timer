@@ -50,7 +50,10 @@ if(seconds < 10 ){ seconds = "0" + seconds };
 
 display = hours + ":" + minutes + ":" + seconds ;
 
-if (timeLeft <= 0) {
+if (timeLeft == 0) {
+
+let x = new Notification("astronalta") ;
+
 clearInterval(timerId);
 
 hours   = actualSetting.hours ;
@@ -63,7 +66,7 @@ if(seconds < 10 ){ seconds = "0" + seconds };
 
 display = hours + ":" + minutes + ":" + seconds ;
 
-let x = new Notification("time is over") ;
+
 
 }
 postMessage(display);
