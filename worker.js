@@ -52,17 +52,17 @@ display = hours + ":" + minutes + ":" + seconds ;
 
 if (timeLeft == 0) {
 
-let x = new Notification("astronalta") ;
+let bruna = new Notification("pameiras");
 
 clearInterval(timerId);
 
-hours   = actualSetting.hours ;
+/*hours   = actualSetting.hours ;
 minutes = actualSetting.minutes ;
-seconds = actualSetting.seconds ; 
+seconds = actualSetting.seconds ; */
 
-if(hours   < 10 ){ hours   = "0" + hours };
+/*if(hours   < 10 ){ hours   = "0" + hours };
 if(minutes < 10 ){ minutes = "0" + minutes };
-if(seconds < 10 ){ seconds = "0" + seconds };
+if(seconds < 10 ){ seconds = "0" + seconds };*/
 
 display = hours + ":" + minutes + ":" + seconds ;
 
