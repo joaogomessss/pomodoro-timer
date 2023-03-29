@@ -66,6 +66,8 @@ if(seconds < 10 ){ seconds = "0" + seconds };*/
 
 display = hours + ":" + minutes + ":" + seconds ;
 
+console.log(display);
+
 
 
 }

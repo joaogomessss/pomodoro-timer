@@ -101,7 +101,7 @@ if(seconds < 10 ){ seconds = "0" + seconds };*/
 
 display = hours + ":" + minutes + ":" + seconds ;
 
-
+console.log(display);
 
 }
 postMessage(display);
@@ -172,8 +172,7 @@ worker.onmessage = (event) => {
 
   if(event.data == "00:00:00"){
     
-  
-    startButton.textContent = "BRAGUE";
+    startButton.textContent = "goku";
   };
 
 
